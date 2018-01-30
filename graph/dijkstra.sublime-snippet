@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[/* <sr.g.djk> */
+	// VERIFIED: abc021c arc090c
+	priority_queue<pair<${1:int}, int>> pq;
+	pq.push({-${2:0} /* minus init-cost */, ${3:0} /* start */});
+	vec<$1> ${4:costs}(${5:G}.nv, ${6:INF});
+	while(!pq.empty()) {
+		int i${1/^(int)|.+$/(?1,:; $&)/} c; tie(c, i) = pq.top(); pq.pop(); c = -c;
+		if($4[i] > c) {
+			$4[i] = c;
+			for(const auto& p : $5.e[i]) { /* p: {index, cost} */
+				int j = p.first${1/^(int)|.+$/(?1,:; $&)/} d = ${1/^(P.+)|.+$/(?1{c.first + p.second, i}:c + p.second)/};
+				if($4[j] > d) pq.push({-d, j});
+			}
+		}
+	}
+/* </sr.g.djk> */]]></content>
+	<tabTrigger>g-djk</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>

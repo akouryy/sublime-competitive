@@ -1,0 +1,9 @@
+<snippet>
+	<content><![CDATA[/* <sr.d.compress> */
+	sort(${1:zp}.begin(), $1.end());
+	${2:unordered_}map<int, int> ${3:cp};${2/.+/ \/\/ unordered: can't call lower_bound/}
+	times(${4:N}, i) $3[$1[i]] = i;
+/* <sr.d.compress> */]]></content>
+	<tabTrigger>d-compress</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>

@@ -1,0 +1,19 @@
+<snippet>
+	<content><![CDATA[/* <sr.g.tpsort> */
+	// VERIFIED: abc021c arc090c
+	template<class T> VI tpsort(const Graph<T>& g) {
+		VI tp; VB visited(g.nv);
+		times(g.nv, i) tpsort_dfs(g, i, tp, visited);
+		reverse(all(tp));
+		return tp;
+	}
+	template<class T> void tpsort_dfs(const Graph<T>& g, int i, VI& tp, VB& visited) {
+		if(visited[i]) return;
+		visited[i] = true;
+		for(const auto& p : g.e[i]) tpsort_dfs(g, p.first, tp, visited);
+		tp.push_back(i);
+	}
+/* </sr.g.tpsort> */]]></content>
+	<tabTrigger>g-tpsort</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>

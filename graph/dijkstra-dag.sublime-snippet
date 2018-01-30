@@ -1,0 +1,12 @@
+<snippet>
+	<content><![CDATA[/* <sr.g.ddag> */
+	g-djk $0
+	// dijkstra-dag VERIFIED: abc021c arc090c
+	auto ${1:dag} = ${2:G}; $1.directed = true; for(auto& ei : $1.e) ei.clear();
+	times($1.nv, i) for(auto& p : $2.e[i]) {
+		int j = p.first; if(${4:costs}[j] - $4[i] == ${5:p.second}) $1.e[i][j] = ${6:$5};
+	}
+/* </sr.g.ddag> */]]></content>
+	<tabTrigger>g-ddag</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>
