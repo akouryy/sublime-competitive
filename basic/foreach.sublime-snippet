@@ -1,6 +1,6 @@
 <snippet>
 	<content><![CDATA[for(${1:auto&} ${2:i} : ${3:v}) {
-	${4:int ${5:j}; LL ${6:d}; tie($5, $6) = $2;}$0
+	${4:int ${5:j}; int ${6:d}; tie($5, $6) = $2;}$0
 }]]></content>
 	<tabTrigger>fe</tabTrigger>
 	<scope>source.c++</scope>

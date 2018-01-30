@@ -1,3 +1,4 @@
+// https://beta.atcoder.jp/contests/arc090/submissions/2041546
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -102,6 +103,33 @@ constexpr long INF = 1LL << 60;
 constexpr long MOD = 1000000007; // 1000000009; // 998244353;
 
 /****************************** optional library ******************************/
+/* <sr.q.uf> */
+	// NOT_VERIFIED
+	// ref: https://github.com/monyone/teihen_library/blob/master/DataStructure/01_WeightedUnionFind.md
+	struct UnionFind {
+		int n;
+		VI parents, treeSizes, weightDiffs;
+		UnionFind(int n_) : n(n_), parents(n), treeSizes(n, 1), weightDiffs(n, 0) { times(n, i) parents[i] = i; }
+		int root(int i) {
+			if(parents[i] == i) return i;
+			int p = root(parents[i]);
+			weightDiffs[i] += weightDiffs[parents[i]];
+			return parents[i] = p;
+		}
+		int weight(int i) { root(i); return weightDiffs[i]; }
+		void merge(int i, int j, int w) { // w > 0 if i < j
+			if(same(i, j)) return;
+			int x = w + weight(i) - weight(j);
+			i = root(i); j = root(j);
+			if(treeSizes[i] < treeSizes[j]) { swap(i, j); x = -x; }
+			parents[j] = i;
+			treeSizes[i] += treeSizes[j]; treeSizes[j] = -1;
+			weightDiffs[j] = x;
+		}
+		bool same(int i, int j) { return root(i) == root(j); }
+		int diff(int base, int i) { return same(base, i) ? weight(i) - weight(base) : -INF; }
+	};
+/* <sr.q.uf> */
 
 /************************************ main ************************************/
 
@@ -111,6 +139,17 @@ void settings() {
 	// INPUT_GRAPH_no_cost = 1;			// uncomment if all input costs are 1
 }
 
-void solve() {
-	RR(int, N, M); ddd(M);
+void solve() { // https://beta.atcoder.jp/contests/arc090/submissions/2041546
+	RR(int, N, M);
+	UnionFind uf(N);
+	times(M, i) {
+		RR(int, L, R, D); --L; --R;
+		if(uf.same(L, R)) {
+			if(uf.diff(L, R) != D) {
+				cout << "No" ln;
+				return;
+			}
+		} else uf.merge(L, R, D);
+	}
+	cout << "Yes" ln;
 }

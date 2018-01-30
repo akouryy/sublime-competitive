@@ -1,0 +1,31 @@
+<snippet>
+	<content><![CDATA[/* <sr.q.uf> */
+	// VERIFIED: arc090b
+	// ref: https://github.com/monyone/teihen_library/blob/master/DataStructure/01_WeightedUnionFind.md
+	struct ${1:UnionFind} {
+		int n;
+		VI parents, treeSizes${2/^(int)$|^.+$/(?1,:; vec<$&>)/} weightDiffs;
+		$1(int n_) : n(n_), parents(n), treeSizes(n, 1), weightDiffs(n, ${3:0}) { times(n, i) parents[i] = i; }
+		int root(int i) {
+			if(parents[i] == i) return i;
+			int p = root(parents[i]);
+			${4:weightDiffs[i] += weightDiffs[parents[i]];}
+			return parents[i] = p;
+		}
+		${2:int} weight(int i) { root(i); return weightDiffs[i]; }
+		void merge(int i, int j, $2 w) { // w > 0 if i < j
+			if(same(i, j)) return;
+			$2 x = ${5:w + weight(i) - weight(j)};
+			i = root(i); j = root(j);
+			if(treeSizes[i] < treeSizes[j]) { swap(i, j); x = -x; }
+			parents[j] = i;
+			treeSizes[i] += treeSizes[j]; treeSizes[j] = -1;
+			weightDiffs[j] = x;
+		}
+		bool same(int i, int j) { return root(i) == root(j); }
+		int diff(int base, int i) { return same(base, i) ? ${6:weight(i) - weight(base) : -INF}; }
+	};
+/* <sr.q.uf> */]]></content>
+	<tabTrigger>q-uf</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>
