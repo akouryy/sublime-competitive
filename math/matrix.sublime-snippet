@@ -1,0 +1,22 @@
+<snippet>
+	<content><![CDATA[/* <sr.m.mat> */
+	// NOT_VERIFIED
+	WI matmul(const VI& A, const VI& B, int mod${1:=MOD}) {
+		int p = size(A), q = size(B), r = size(B[0]);
+		if(debug) assert(size(A[0]) == q);
+
+		WI ans(p, VI(r));
+		times(p, i) times(q, k) times(r, j) ans[i][j] = (ans[i][j] + A[i][k] * B[k][j]) % mod;
+		return ans;
+	}
+	// NOT_VERIFIED
+	inline WI matpow(const WI& a, int b, int mod$1) {
+		int s = size(a);
+		WI ans(s, VI(s)); times(s, i) ans[i][i] = 1; // Identity
+		for(; b; b >>= 1, (a *= a) %= mod) if(b & 1) ans = mul(ans, a, mod);
+		return ans;
+	}
+/* </sr.m.mat> */]]></content>
+	<tabTrigger>m-mat</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>

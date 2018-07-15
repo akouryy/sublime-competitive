@@ -1,0 +1,25 @@
+<snippet>
+	<content><![CDATA[/* <sr.q.bit2d> */
+	// NOT_VERIFIED
+	// ref: http://hos.ac/slides/20140319_bit.pdf
+	struct ${1:BIT2D} {
+		static const int N = ${2:100000};
+		${3:int} node[N][N];
+		$1() { times(N, i) times(N, j) node[i][j] = ${4:0}; }
+		/** 0-based **/
+		void update(int i, int j, $3 v) {
+			for(; i < N; i += i-1 & 1-i)
+				for(; j < N; j += j-1 & 1-j) ${7:node[i][j] += v};
+		}
+		/** [0, i) **/
+		$3 query(int i, int j) const {
+			$3 s = ${8:$4};
+			for(; i; i -= i-1 & 1-i)
+				for(; j; j -= j-1 & 1-j) ${9:${7/(node\[i\]\[j\])|v/(?1s:node[i][j])/g}};
+			return s;
+		}
+	};
+/* </sr.q.bit2d> */]]></content>
+	<tabTrigger>q-bit2d</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>

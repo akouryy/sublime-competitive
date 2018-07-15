@@ -13,7 +13,7 @@
 			return parents[i] = p;
 		}
 		${2:int} weight(int i) { root(i); return weightDiffs[i]; }
-		void merge(int i, int j, $2 w) { // w > 0 if i < j
+		void merge(int i, int j, $2 w = 0) { // w > 0 if wi < wj
 			if(same(i, j)) return;
 			$2 x = ${5:w + weight(i) - weight(j)};
 			i = root(i); j = root(j);
@@ -23,9 +23,9 @@
 			weightDiffs[j] = x;
 		}
 		bool same(int i, int j) { return root(i) == root(j); }
-		int diff(int base, int i) { return same(base, i) ? ${6:weight(i) - weight(base) : -INF}; }
+		$2 diff(int base, int i) { return same(base, i) ? ${6:weight(i) - weight(base) : -INF}; }
 	};
-/* <sr.q.uf> */]]></content>
+/* </sr.q.uf> */]]></content>
 	<tabTrigger>q-uf</tabTrigger>
 	<scope>source.c++</scope>
 </snippet>

@@ -1,0 +1,37 @@
+<snippet>
+	<content><![CDATA[/* <sr.q.bit> */
+	// NOT_VERIFIED
+	// ref: ant-159
+	// ref: http://hos.ac/slides/20140319_bit.pdf
+	struct ${1:BIT} {
+		static const int N = ${2:100000};
+		${3:int} node[N];
+	public:
+		$1() { times(N, i) node[i] = ${4:0}; }
+		/** 0-based **/
+		void update(int i, $3 v) {
+			for(; i < N; i += i-1 & 1-i) ${7:node[i] += v};
+		}
+		/** [0, i) **/
+		$3 query(int i) const {
+			$3 s = ${8:$4};
+			for(; i; i -= i-1 & 1-i) ${9:${7/(node\[i\])|v/(?1s:node[i])/g}};
+			return s;
+		}${10:
+		/** binary search **/
+		int sum_ge(int s) const \{
+			if(s <= 0) return 0;
+			int i = 0;
+			for(int k = N / 2; k; k /= 2) \{
+				if(node[i + k] < s) \{
+					s -= node[i + k];
+					i += k;
+				\}
+			\}
+			return i;
+		\} }
+	};
+/* </sr.q.bit> */]]></content>
+	<tabTrigger>q-bit</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>

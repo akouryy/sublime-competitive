@@ -1,0 +1,32 @@
+<snippet>
+	<content><![CDATA[/* <sr.g.kyorenket> */
+	// NOT_VERIFIED
+	// ref: ari-285
+	struct Kyorenket {
+		int n, tpord_count;
+		WI path, path_rev;
+		VI vs_post_ord, sebun_tpord;
+		VB is_visited;
+		Kyorenket(const WI& p) : n(size(p)), path(p), path_rev(n), sebun_tpord(n), is_visited(n) {
+			times(n, i) for(int j : path[i]) path_rev[j].push_back(i);
+			vs_post_ord.reserve(n);
+
+			times(n, i) if(not is_visited[i]) dfs(i);
+			fill(all(is_visited), false);
+			reverse(all(vs_post_ord));
+			for(int i : vs_post_ord) if(not is_visited[i]) rdfs(i, tpord_count++);
+		}
+		void dfs(int i) {
+			is_visited[i] = true;
+			for(int j : path[i]) if(not is_visited[j]) dfs(j);
+			vs_post_ord.push_back(i);
+		}
+		void rdfs(int i, int tp) {
+			is_visited[i] = true; sebun_tpord[i] = tp;
+			for(int j : path[i]) if(not is_visited[j]) rdfs(j, tp);
+		}
+	};
+/* </sr.g.kyorenket> */]]></content>
+	<tabTrigger>g-kyorenket</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>

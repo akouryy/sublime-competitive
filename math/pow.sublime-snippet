@@ -1,0 +1,14 @@
+<snippet>
+	<content><![CDATA[/* <sr.m.pow> */
+	// NOT_VERIFIED
+	// ref: ari-114
+	// O(log b)
+	inline int mpow(int a, int b, int mod${1:=MOD}) {
+		int ans = 1;
+		for(; b; b >>= 1, (a *= a) %= mod) if(b & 1) (ans *= a) %= mod;
+		return ans;
+	}
+/* </sr.m.pow> */]]></content>
+	<tabTrigger>m-pow</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>

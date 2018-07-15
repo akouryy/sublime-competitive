@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[/* <sr.q.seg> */
+	// NOT_VERIFIED
+	// ref: http://codeforces.com/blog/entry/18051
+	struct ${1:SegTree} {
+		static const int N = ${2:100000};
+		/** 1-based **/
+		${3:int} node[N*2];
+		$1() { times(N*2, i) node[i] = ${3:INF}; }
+		/** 0-based **/
+		$3 get(unsigned i) const { return node[N + i]; }
+		/** 0-based **/
+		void set(int i, $3 v) {
+			for(i += N, node[i] = v; i >>= 1; ) node[i] = ${4:min}(node[i<<1], node[i<<1 | 1]);
+		}
+		/** [l, r) 0-based **/
+		$3 query(int l, int r) const {
+			int a = $3;
+			for(l += N, r += N; l < r; l = (l+1) >> 1, r >>= 1) {
+				if(l & 1) a = $4(a, node[l]);
+				if(r & 1) a = $4(node[r & ~1], a);
+			}
+			return a;
+		}
+	};
+/* </sr.q.seg> */]]></content>
+	<tabTrigger>q-seg</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>

@@ -1,0 +1,13 @@
+<snippet>
+	<content><![CDATA[/* <sr.m.nck> */
+	m-fact $0
+	// NOT_VERIFIED
+	// O(1), before:O(N)
+	inline int nCk(int n, int k, int mod${1:=MOD}) {
+		if(!fact) { cerr << "factInit before nCk.\n"; return -1; }
+		return fact[n] * factInv[k] % mod * factInv[n-k] % mod;
+	}
+/* </sr.m.nck> */]]></content>
+	<tabTrigger>m-nck-npk</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>

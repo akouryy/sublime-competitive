@@ -29,8 +29,8 @@ bool debug;
 #define ln << '\n'
 #define tb << '\t'
 #define sp << ' '
-#define dd(x) if(debug) cerr << #x << " = " << (x) << ", "
-#define ddd(x) if(debug) cerr << #x << " = " << (x) ln
+#define DD(x) if(debug) cerr << #x << " = " << (x) << ", "
+#define DDD(x) if(debug) cerr << #x << " = " << (x) ln
 #define db dd
 #define dbg ddd
 
@@ -88,18 +88,34 @@ signed main(signed argc, char *argv[]) {
 	template<class T, class...S> inline vec<T>& RD(vec<T>& t, vec<S>&... s) { times(t.size(), i) { RD(t[i], s[i]...); } return t; }
 	#define RR(typ, ...) typ __VA_ARGS__; RD(__VA_ARGS__)
 	template<class T, class...A> inline T READ(A... a) { T t(a...); cin >> t; return t; }
+	template<class T> inline void dddf(const T& t) { if(debug) cerr << t ln; }
+	template<class T, class...U> inline void dddf(const T& t, const U&... u) { if(debug) { cerr << t << ", "; dddf(u...); }}
+	#define ddd(...) if(debug) { cerr << #__VA_ARGS__ << " = "; dddf(__VA_ARGS__); }
 /** container **/
 	#define all(v) begin(v), end(v)
 	template<class T> inline T max(const pair<T, T>& p) { return max(p.first, p.second); }
 	template<class T> inline T min(const pair<T, T>& p) { return min(p.first, p.second); }
 	template<class T> inline T max(const vec<T>& v) { return *max_element(all(v)); }
 	template<class T> inline T min(const vec<T>& v) { return *min_element(all(v)); }
+	template<class T> inline T sum(const vec<T>& v) { T s = v.empty() ? 0 : v[0]; uptil(1, v.size(), i) s += v[i]; return s; }
+	template<class T> inline T sum(const vec<T>& v, int mod) { T s = v.empty() ? 0 : v[0]; uptil(1, v.size(), i) (s += v[i]) %= mod; return s; }
+	template<class T, class U> inline T dig(const U& d, const T& t) { return t; }
+	template<class T, class U, class...I> inline U dig(const U& d, const T& t, int i, I... j) {
+		return 0 <= i && i < t.size() ? dig(d, t[i], j...) : d; }
+	#define firstItrSTValGE lower_bound
+	#define firstItrSTValGT upper_bound
 /** other **/
+	template<class T> inline signed SIZE(const T& t) { return t.size(); }
+	#define size SIZE
+	#define MP make_pair
+	#define MT make_tuple
+	#define PB push_back
 	#define b_max(x, y) x = max(x, y)
 	#define b_min(x, y) x = min(x, y)
+	#define uniqSort(v) { sort(v.begin(), v.end()); v.erase(unique(v.begin(), v.end()), v.end()); }
 	inline LD AC(LD d) { return d ? d : 0; }
-constexpr long INF = 1LL << 60;
-constexpr long MOD = 1000000007; // 1000000009; // 998244353;
+[[maybe_unused]] constexpr long INF = 1LL << 60;
+[[maybe_unused]] constexpr long MOD = 1000000007; // 1000000009; // 998244353;
 
 /****************************** optional library ******************************/
 
@@ -108,9 +124,9 @@ constexpr long MOD = 1000000007; // 1000000009; // 998244353;
 void settings() {
 	// INPUT_GRAPH_index_sub = 0;		// uncomment if input index is 0-based
 	// INPUT_GRAPH_allow_empty = true;	// uncomment to allow empty graph
-	// INPUT_GRAPH_no_cost = 1;			// uncomment if all input costs are 1
+	// INPUT_GRAPH_cost = 1;			// uncomment if all input costs are 1
 }
 
 void solve() {
-	RR(int, N, M); ddd(M);
+
 }

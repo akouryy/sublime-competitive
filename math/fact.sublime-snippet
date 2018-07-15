@@ -1,0 +1,18 @@
+<snippet>
+	<content><![CDATA[/* <sr.m.fact> */
+	m-pow $0
+	// NOT_VERIFIED
+	// ref: twitter.com/meguru_comp/status/694207919517077504
+	// O(N + log mod)
+	int *fact, *factInv;
+	void factInit(int N, int mod${1:=MOD}) {
+		fact = new int[N+1]; factInv = new int[N+1];
+		fact[0] = 1;
+		upto(1,N,i) fact[i] = fact[i-1] * i % mod;
+		factInv[N] = mpow(fact[N], mod-2, mod);
+		rtimes(N,i) factInv[i] = factInv[i+1] * (i+1) % mod;
+	}
+/* </sr.m.fact> */]]></content>
+	<tabTrigger>m-fact</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>
